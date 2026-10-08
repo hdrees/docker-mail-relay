@@ -3,8 +3,12 @@
 set -eu
 
 echo "Configuring postfix"
+# credentials file: readable by root only (postmap output too)
+umask 077
 echo "${relayhost} ${relayuser}:${relaypassword}" > /etc/postfix/sasl_password
 postmap /etc/postfix/sasl_password
+chmod 600 /etc/postfix/sasl_password /etc/postfix/sasl_password.db
+umask 022
 
 postconf -e "inet_protocols = ipv4"
 postconf -e "maillog_file = /dev/stdout"

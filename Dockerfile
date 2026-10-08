@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
@@ -8,4 +8,4 @@ RUN apt-get update && apt-get install -y \
 COPY postfix.sh /
 RUN chmod +x /postfix.sh
 EXPOSE 25
-CMD ["/postfix.sh"] && tail -f /dev/null
+CMD ["/postfix.sh"]
